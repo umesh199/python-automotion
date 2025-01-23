@@ -1,0 +1,35 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: Get CPU model
+      shell: lscpu | grep 'Model name' | awk -F: '{print $2}' | xargs
+      register: cpu_model
+
+    - name: Get CPU frequency
+      shell: lscpu | grep 'CPU MHz' | awk '{print $3}'
+      register: cpu_frequency
+
+    - name: Get memory speed
+      shell: sudo dmidecode --type 17 | grep 'Speed' | head -n 1 | awk -F: '{print $2}' | xargs
+      register: memory_speed
+
+    - name: Get memory size
+      shell: free -g | grep 'Mem:' | awk '{print $2}'
+      register: memory_size
+
+    - name: Get number of cores
+      shell: nproc
+      register: num_cores
+
+    - name: Collect results
+      copy:
+        content: |
+          {
+              "cpu_model": "{{ cpu_model.stdout.strip() }}",
+              "cpu_frequency": "{{ cpu_frequency.stdout.strip() }}",
+              "memory_speed": "{{ memory_speed.stdout.strip() }}",
+              "memory_size": "{{ memory_size.stdout.strip() }}",
+              "num_cores": "{{ num_cores.stdout.strip() }}"
+          }
+        dest: "/tmp/system_info.json"
