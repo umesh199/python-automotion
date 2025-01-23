@@ -1,0 +1,30 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: Get CPU frequency
+      shell: lscpu | grep 'CPU MHz' | awk '{print $3}'
+      register: cpu_frequency
+
+    - name: Get number of cores
+      shell: nproc
+      register: num_cores
+
+    - name: Get total memory
+      shell: free -h | grep 'Mem:' | awk '{print $2}'
+      register: total_memory
+
+    - name: Get CPU factor
+      shell: echo "Custom CPU Factor Logic Here"
+      register: cpu_factor
+
+    - name: Collect results
+      copy:
+        content: |
+          {
+              "cpu_frequency": "{{ cpu_frequency.stdout.strip() }}",
+              "num_cores": "{{ num_cores.stdout.strip() }}",
+              "total_memory": "{{ total_memory.stdout.strip() }}",
+              "cpu_factor": "{{ cpu_factor.stdout.strip() }}"
+          }
+        dest: "/tmp/system_info.json"
