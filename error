@@ -43,3 +43,7 @@ Could be written as:
 Or equivalently:
 
    when: "'ok' in result.stdout"
+
+FAILED! => {"changed": true, "cmd": "lscpu | grep 'CPU MHz' | awk '{print \\$3}'", "delta": "0:00:00.011041", "end": "2025-01-23 05:51:10.864332", "msg": "non-zero return code", "rc": 1, "start": "2025-01-23 05:51:10.853291", "stderr": "awk: cmd. line:1: {print \\$3}\nawk: cmd. line:1:        ^ backslash not last character on line\nawk: cmd. line:1: {print \\$3}\nawk: cmd. line:1:        ^ syntax error", "stderr_lines": ["awk: cmd. line:1: {print \\$3}", "awk: cmd. line:1:        ^ backslash not last character on line", "awk: cmd. line:1: {print \\$3}", "awk: cmd. line:1:        ^ syntax error"], "stdout": "", "stdout_lines": []}
+FAILED! => {"changed": true, "cmd": "lscpu | grep 'CPU MHz' | awk '{print \\$3}'", "delta": "0:00:00.011041", "end": "2025-01-23 05:51:10.864332", "msg": "non-zero return code", "rc": 1, "start": "2025-01-23 05:51:10.853291", "stderr": "awk: cmd. line:1: {print \\$3}\nawk: cmd. line:1:        ^ backslash not last character on line\nawk: cmd. line:1: {print \\$3}\nawk: cmd. line:1:        ^ syntax error", "stderr_lines": ["awk: cmd. line:1: {print \\$3}", "awk: cmd. line:1:        ^ backslash not last character on line", "awk: cmd. line:1: {print \\$3}", "awk: cmd. line:1:        ^ syntax error"], "stdout": "", "stdout_lines": []}
+
