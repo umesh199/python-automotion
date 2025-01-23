@@ -12,3 +12,4 @@ The offending line appears to be:
     - name: Get CPU model
       shell: lscpu | grep 'Model name' | awk -F: '{print $2}' | xargs
                                                ^ here
+"msg": "template error while templating string: unexpected char '$' at 45. String: lscpu | grep 'Model name' | awk -F: '{{print $2}}' | xargs. unexpected char '$' at 45"}
